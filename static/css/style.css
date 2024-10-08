@@ -8,6 +8,9 @@
     object-position: top;
     height:44vh;
 }
+a{
+    text-decoration: none;
+}
 .links-shop{
     margin-right: 30px;
 }

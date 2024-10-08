@@ -3,7 +3,7 @@
 ShopKart | Collections
 {% endblock title %}        
  {% block content %}
-  <section class="py-5 text-center container " style="margin-top: 60px;">
+  <section class="py-5 text-center container " style="margin-top: 30px;">
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light">Bestsellers</h1>
@@ -14,6 +14,30 @@ ShopKart | Collections
             </p>
         </div>
     </div>
-  </section>
+</section>
+<section class="bg-light py-4 my-1">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="mb-3">Collections</h4>
+            <hr style="border-color: #b8bfc2;">
+        </div>
+        {% for a in catagory %}
+        <div class="col-md-4 col-lg-3">
+            <div class="card  my-3" >
+                <img src="{{a.image.url}}" class="card-image-top mx-auto d-block" alt="categories logo" style="width:200px;height:160px;margin-top:3px;">
+                <hr class="mt-3" style="border-color: #404141;">
+                <a href="{% url 'collections' a.name %}" style="color:initial;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary ">{{a.name}}</h5>
+                    <p class="card-text">{{a.description}}</p>
+                </div>
+            </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</section>
     
  {% endblock content %} 
