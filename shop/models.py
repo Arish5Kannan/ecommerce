@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import os
 import datetime
 def getFilename(request,filename):
@@ -27,4 +28,17 @@ class Product(models.Model):
     trending = models.BooleanField(default=False,help_text='0-default,1-trending')
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.name        
+        return self.name    
+class Cart(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)  
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)  
+    product_qty = models.IntegerField(blank=False,null=False)   
+    created_at = models.DateTimeField(auto_now_add=True) 
+
+    @property
+    def total(self):
+        return self.product_qty*self.product.new_price  
+class Favourite(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)  
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)     
+    created_at = models.DateTimeField(auto_now_add=True)    

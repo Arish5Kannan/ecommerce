@@ -1,15 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand brand-shop" href="{% url 'home' %}"><i class="fa-solid fa-cart-shopping "></i>ShopKart</a>
+      <a class="navbar-brand brand-shop" href="{% url 'home' %}"><i class="fa fa-cart-plus "></i> ShopKart</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto links-shop">
-          <a class="nav-link link-items " aria-current="page" href="{% url 'home' %}"><i class="fa fa-home "></i>Home</a>
-          <a class="nav-link link-items " href="{% url 'register' %}">Register</a>
-          <a class="nav-link link-items " href="{% url 'collections' %}">Collections</a>
-        
+          <a class="nav-link link-items " aria-current="page" href="{% url 'home' %}" ><i class="fa fa-home " ></i> Home</a>
+          <a class="nav-link link-items " href="{% url 'collections' %}"><i class="fa fa-cubes"></i> Collections</a>
+          
+          {% if request.user.is_authenticated %}
+          <a class="nav-link link-items " href="{% url 'cart' %}"><i class="fa fa-cart-shopping"></i> Cart</a>
+          <a class="nav-link link-items " href="{% url 'favview' %}"><i class="fa fa-heart"></i> Favourites</a>
+         
+          <a class="nav-link link-items " href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Logout</a>
+          <a class="nav-link link-items " href="#"><i class="fa fa-user" style="background-color: aliceblue;color: black;padding: 4px;border-radius: 12px;"></i> {{request.user}}</a>
+         {% else %}
+         <a class="nav-link link-items " href="{% url 'register' %}"><i class="fa fa-users"></i> Register</a>
+          <a class="nav-link link-items " href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Login</a>
+        {% endif %}
         </div>
       </div>
     </div>

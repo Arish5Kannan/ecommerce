@@ -1,8 +1,8 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
-
+*{
+    font-family: sans-serif;
+}
 .carousel-item img{
-    margin-top:60px;
+    margin-top:58px;
     object-fit: cover;
     overflow: hidden;
     object-position: top;
@@ -19,6 +19,37 @@ a{
     font-size: 17px;
 }
 .brand-shop{
-    margin-left: 120px;
-    font-size: 23px;
+    margin-left:50px;
+    font-size:23px ;
+
+}
+.old_price{
+    font-weight: bold;
+    color: red;
+}
+.new_price{
+    font-weight: bold;
+    color: white;
+    background-color: green;
+    padding: 2px;
+    border-radius: 4px;
+    margin-bottom: 4%;
+}
+.trendy{
+    position:relative;
+}
+.hot{
+    background-color: orangered;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px;
+    border-radius: 5px;
+    display: inline;
+    position: absolute;
+    width:40px;
+    color: white;
+    top:8px;
+    left: 8px;
+    z-index: 10;
+    font-size:15px;
 }

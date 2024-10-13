@@ -1,43 +1,46 @@
 {% extends 'shop/layouts/main.html' %}
 {% block title %}
-ShopKart | Collections
-{% endblock title %}        
- {% block content %}
-  <section class="py-5 text-center container " style="margin-top: 30px;">
+   ShopKart | Collections
+{% endblock title %}
+{% block content %}
+  <section class="py-5 text-center container"  style="margin-top:70px;">
     <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Bestsellers</h1>
-            <p class="lead text-muted">Our most popular products based on sales.Updated hourly</p>
-            <p>
-                <a href="#" class="btn btn-primary my-2">Already User</a>
-                <a href="#" class="btn btn-secondary my-2">Register</a>
-            </p>
-        </div>
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Bestsellers</h1>
+        <p class="lead text-muted">Our most popular products based on sales. Updated hourly.</p>
+        <p>
+          <a href="{% url 'login' %}" class="btn btn-primary my-2">Already User</a>
+          <a href="{% url 'register' %}" class="btn btn-secondary my-2">Register</a>
+        </p>
+      </div>
     </div>
-</section>
-<section class="bg-light py-4 my-1">
-<div class="container">
-    <div class="row">
+  </section>
+  <section class="bg-light py-4 my-5" style="min-height:600px;">
+    <div class="container">
+      <div class="row">
         <div class="col-12">
-            <h4 class="mb-3">Collections</h4>
-            <hr style="border-color: #b8bfc2;">
+          <h4 class="mb-3">Categories</h4>
+          <hr style="border-color:#404041;">
+          {% include 'shop/inc/messages.html' %}
         </div>
-        {% for a in catagory %}
+        {% for item in catagory %}
         <div class="col-md-4 col-lg-3">
-            <div class="card  my-3" >
-                <img src="{{a.image.url}}" class="card-image-top mx-auto d-block" alt="categories logo" style="width:200px;height:160px;margin-top:3px;">
-                <hr class="mt-3" style="border-color: #404141;">
-                <a href="{% url 'collections' a.name %}" style="color:initial;">
-                <div class="card-body">
-                    <h5 class="card-title text-primary ">{{a.name}}</h5>
-                    <p class="card-text">{{a.description}}</p>
-                </div>
-            </a>
+          <div class="card my-3" style="border: none;box-shadow: 2px 3px 4px 2px  #807f7f3b;">
+            <img src="{{item.image.url}}"  class="card-image-top d-block mx-auto" alt="Categories" style="width:170px;height:170px;margin-top: 3%;">
+            <hr style="margin:4px 0px 0px 0px;border-color: #404041;">
+            <a href="{% url 'collections' item.name %}">
+            <div class="card-body">
+              <h5 class="card-title text-primary">{{ item.name }}</h5>
+              <p class="card-text" style="color: black;">{{ item.description }}</p>
+    
             </div>
+          </a>
+          </div>
         </div>
         {% endfor %}
-    </div>
-</div>
-</section>
-    
- {% endblock content %} 
+
+      </div>
+      </div>
+  </section>
+
+{% endblock content %}

@@ -1,0 +1,146 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+ShopKart | {{prod}}
+{% endblock title %}        
+ {% block content %}
+ <section class="bg-light py-4 my-5" >
+ <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4 class="fw-dark" style="margin-top: 30px;">{{prod}} Details</h4>
+            <hr class="mb-3" style="border-color: #b8bfc2;">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{% url 'collections' prod.category %}">Products</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{prod}}</li>
+                </ol>
+              </nav>
+              {% include 'shop/inc/messages.html' %}
+        </div>
+        <div class="col-md-4 col-lg-3 my-3">
+            <div class="card trendy" style="border: none;">
+                {% if prod.trending %}
+                <div class="hot">Hot</div>
+                {% endif %}
+                <img src="{{ prod.product_image.url }}" class="card-image-top mx-auto d-block" alt="{{prod}} logo" style="width:200px;height:220px;margin-top: 3%;">
+                <hr style="border-color: #161616;">
+            </div>
+         </div>
+          <div class="col-xlg-8 col-sm-8 my-3">
+            <h5 class="text-success">{{prod | upper}}</h5>
+            <p class="text-normal">{{prod.vendor | upper}}</p>
+            <p class="text-normal" style="text-align: justify;">{{prod.description}}</p>
+            <h6 class="my-2 text-danger ">Original Price : ₹<s>{{prod.old_price | stringformat:'d'}}</s></h6>
+            <h5 class="my-2 text-primary">Offer Price : ₹{{prod.new_price | stringformat:'d'}}</h5>
+        <div class="my-3">
+            {% if prod.quantity > 0 %}
+            <input type="hidden" value="{{prod.id}}" id="pid">
+            
+            <p>
+                <div class="input-group" style="width:150px;">
+                    <button id="btnminus" class="input-group-text bg-success text-light "><i class="fa fa-minus"></i></button>
+                    <input readonly type="text" id="textqty" name="qty" value="1" class="form-control text-center">
+                    <button id="btnplus" class="input-group-text bg-success text-light "><i class="fa fa-plus"></i></button>
+                </div>
+            </p>
+            <button  class="btn btn-primary" id="btnCart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+            {% else %}
+            <button  class="btn btn-secondary"><i class="fa fa-minus"></i> Out of Stock</button>
+            {% endif %}
+            <button  class="btn btn-danger" id="btnFav"><i class="fa fa-heart"></i></button>
+        </div>
+        </div>
+    </div>
+ </div>
+ </section>
+ <script>
+    document.addEventListener("DOMContentLoaded",function(event){
+        const btnplus = document.getElementById('btnplus');
+        const btnminus = document.getElementById('btnminus');
+        const textQty = document.getElementById('textqty');
+        const pid = document.getElementById('pid');
+        const btnCart = document.getElementById('btnCart');
+        const btnFav = document.getElementById('btnFav');
+        
+        btnplus.addEventListener("click",function(){
+           let qty = parseInt(textQty.value,10);
+           qty = isNaN(qty)?0:qty;
+           if(qty<10)
+           {
+            qty++;
+            textQty.value = qty;
+    }
+
+        });
+        btnminus.addEventListener("click",function(){
+           let qty = parseInt(textQty.value,10);
+           qty = isNaN(qty)?0:qty;
+           if(qty>1)
+           {
+            qty--;
+            textQty.value = qty;
+           }
+
+        });
+        btnCart.addEventListener("click",function(){
+
+           let qty = parseInt(textQty.value,10);
+           qty = isNaN(qty)?0:qty;
+           if(qty>0)
+           {
+          let postObject = {
+           'product_qty':qty,
+            'pid':pid.value,
+           
+          }
+          console.log(postObject)
+          fetch("/add_to_cart",{
+          method: 'POST',
+          credentials: 'same-origin',
+          headers:{
+              'Accept': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body: JSON.stringify(postObject)
+        }).then(response => {
+	        return response.json();
+        }).then(data => {
+        	// console.log(data);
+          alert(data['status']);
+        });
+           }
+           else{
+            alert('Enter the quantity')
+           }
+          
+
+        });
+        btnFav.addEventListener("click", function() {
+     
+     let postObj = { 
+         'pid': pid.value
+     }
+    
+     fetch("/fav",{
+       method: 'POST',
+       credentials: 'same-origin',
+       headers:{
+           'Accept': 'application/json',
+           'X-Requested-With': 'XMLHttpRequest',
+           'X-CSRFToken': '{{ csrf_token }}',
+       },
+       body: JSON.stringify(postObj)
+     }).then(response => {
+         return response.json();
+     }).then(data => {
+         
+       alert(data['status']);
+     });
+   
+});
+    });
+ </script>
+ {% endblock content %}   
+
