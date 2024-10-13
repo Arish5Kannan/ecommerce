@@ -114,4 +114,4 @@ def favview(request):
 def remove_fav(request,id):
     favourite = Favourite.objects.get(id=id)
     favourite.delete()
-    return redirect('fav')    
+    return redirect('favview')    
