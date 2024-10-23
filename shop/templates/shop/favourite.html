@@ -11,10 +11,10 @@ ShopKart | Favourite
      </div>
     </div>
    <section class="my-3">
-    <div class="container">
+    <div class="container ">
         <div class="row">
             <div class="col-12">
-                <table class="table table-borderless">
+                <table class="table table-borderless text-center">
                     <tr>
                         <th scope="col">Image</th>
                         <th scope="col">Product Name</th>
@@ -25,10 +25,11 @@ ShopKart | Favourite
         
                     {% for item in fav %}
                    <tr>
+                    <input type="hidden" value="{{ item.id}}" id="fid">
                       <td scope="col"><img src="{{item.product.product_image.url}}" height="75px" alt="{{item.product.name}}"></td>
                       <td scope="col">{{item.product.name}}</td>
                       <td scope="col">₹{{item.product.new_price | stringformat:'d'}}</td>
-                      <td scope="col"><a href="{% url 'remove_fav' item.id %}"  onclick="return confirm('Are you sure? to Remove')"  class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> </a></td>
+                      <td scope="col"><button id="Favrem"   class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> </a></td>
                     </tr>
                     {% endfor %}
                     <tr>
@@ -38,5 +39,31 @@ ShopKart | Favourite
     </div>
    </section>
   </div>
+  <script>
+    const btnFavrem = document.getElementById('Favrem');
+    const Fid = document.getElementById('fid')
+    document.addEventListener("DOMContentLoaded",function(event){
+      btnFavrem.addEventListener("click",function(event){
+        let postObject = {
+            'fid':Fid.value,
+        }
+        fetch("/remove_fav/",{
+            method: 'POST',
+            credentials: 'same-origin',
+            headers:{
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body:JSON.stringify(postObject)
+  }).then(response=>{
     
+    return response.json();
+  }).then(data =>{
+    alert(data['status']);
+    window.location.href="{% url 'favview' %}";
+  });
+      });
+    });
+  </script>  
  {% endblock content %}   

@@ -16,7 +16,7 @@ ShopKart | {{category_name}}
                   <li class="breadcrumb-item active" aria-current="page">{{category_name}}</li>
                 </ol>
               </nav>
-              {% include 'shop/inc/messages.html' %}
+              
         </div>
         {% for a in prod %}
         <div class="col-md-4 col-lg-3">
@@ -30,8 +30,8 @@ ShopKart | {{category_name}}
                 <div class="card-body">
                     <h5 class="card-title text-primary" style="padding-bottom:6px;">{{a.name}}</h5>
                     <p class="card-text" >
-                        <span class="float-start old_price"><s>Rs.{{a.old_price |stringformat:'d'}} </s></span>
-                        <span class="float-end new_price">Rs.{{a.new_price |stringformat:'d'}}</span>
+                        <span class="float-start old_price"><s>₹{{a.old_price |stringformat:'d'}} </s></span>
+                        <span class="float-end new_price">₹{{a.new_price |stringformat:'d'}}</span>
                     </p>
                 </div>
             </a>

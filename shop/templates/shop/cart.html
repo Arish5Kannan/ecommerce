@@ -28,13 +28,14 @@ ShopKart | Cart
                     </thead>
                     <tbody>
                         {% for i in carts %}
+                        <input type="hidden" value="{{i.id}}" id="cid">
                       <tr>
                         <td><img src="{{ i.product.product_image.url }}" height="75px" alt="{{ carts.product.name}} logo"></td>
                         <td>{{i.product.name}}</td>
                         <td>{{i.product_qty}}</td>
                         <td>₹{{i.product.new_price | stringformat:'d' }}</td>
                         <td class="amt">{{i.total | stringformat:'d' }}</td>
-                        <td ><a href="{% url 'cart' i.id %}" class="btn btn-danger btn-sm" id="btnremove" onclick="return confirm('Are you sure ? remove');"><i class="fa fa-trash"></i></a></td>
+                        <td ><btn  class="btn btn-danger btn-sm" id="btnremove" ><i class="fa fa-trash"></i></button></td>
                        
                       </tr>
                       {% endfor %}
@@ -54,11 +55,36 @@ ShopKart | Cart
    </section>
   </div>
   <script>
-    const nodes = document.querySelectorAll('.amt'); 
-
+document.addEventListener("DOMContentLoaded",function(event){
+const CID = document.getElementById('cid');
+const btnRemove = document.getElementById('btnremove');
+btnRemove.addEventListener("click",function(event){
+  let postObject = {
+     'cartid':CID.value,
+    
+   }
+fetch("/remove_cart/",{
+          method: 'POST',
+          credentials: 'same-origin',
+          headers:{
+              'Accept': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body:JSON.stringify(postObject)
+}).then(response=>{
+  
+  return response.json();
+}).then(data =>{
+  alert(data['status']);
+  window.location.href="{% url 'cart' %}";
+});
+});
+});
+const nodes = document.querySelectorAll('.amt'); 
 const arr = Array.from(nodes); 
 const res = arr.reduce((acc, curr) => {
-    const value = parseFloat(curr.textContent.trim(),10); console.log(value); 
+    const value = parseFloat(curr.textContent.trim(),10);  
     const num = parseFloat(value); 
     
     if (!isNaN(num)) {
@@ -69,5 +95,6 @@ const res = arr.reduce((acc, curr) => {
 }, 0);
 
 document.getElementById("net").innerHTML='₹'+res; 
+
  </script> 
  {% endblock content %}   

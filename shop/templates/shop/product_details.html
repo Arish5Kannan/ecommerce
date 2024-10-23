@@ -1,4 +1,5 @@
 {% extends 'shop/layouts/main.html' %}
+{% load static %}
 {% block title %}
 ShopKart | {{prod}}
 {% endblock title %}        
@@ -16,23 +17,23 @@ ShopKart | {{prod}}
                   <li class="breadcrumb-item active" aria-current="page">{{prod}}</li>
                 </ol>
               </nav>
-              {% include 'shop/inc/messages.html' %}
+             
         </div>
         <div class="col-md-4 col-lg-3 my-3">
-            <div class="card trendy" style="border: none;">
+            <div class="card trendy" style="padding-bottom:10px;border:none;border-bottom:1px solid rgba(128, 128, 128, 0.856);">
                 {% if prod.trending %}
                 <div class="hot">Hot</div>
                 {% endif %}
                 <img src="{{ prod.product_image.url }}" class="card-image-top mx-auto d-block" alt="{{prod}} logo" style="width:200px;height:220px;margin-top: 3%;">
-                <hr style="border-color: #161616;">
+                <!-- <hr style="border-color: #161616;"> -->
             </div>
          </div>
           <div class="col-lg-9 col-sm-12 my-3">
             <h5 class="text-success">{{prod | upper}}</h5>
             <p class="text-normal">{{prod.vendor | upper}}</p>
             <p class="text-normal" style="text-align: justify;">{{prod.description}}</p>
-            <h6 class="my-2 text-danger ">Original Price : ₹<s>{{prod.old_price | stringformat:'d'}}</s></h6>
-            <h5 class="my-2 text-primary">Offer Price : ₹{{prod.new_price | stringformat:'d'}}</h5>
+            <h6 class="my-2 text-danger d-inline"><span class=" px-2 py-2" style="border-radius: 5px;font-size: 18px;"> <s>₹{{prod.old_price | stringformat:'d'}}</s></span></h6>
+            <h5 class="my-2 text-secondary d-inline"><span style="background-color: green;padding: 10px;border-radius: 5px;" class="  text-center text-white px-1 py-1 mx-1" style="font-size: 21px;"> ₹{{prod.new_price | stringformat:'d'}}</span></h5>
         <div class="my-3">
             {% if prod.quantity > 0 %}
             <input type="hidden" value="{{prod.id}}" id="pid">
@@ -44,26 +45,28 @@ ShopKart | {{prod}}
                     <button id="btnplus" class="input-group-text bg-success text-light "><i class="fa fa-plus"></i></button>
                 </div>
             </p>
-            <button  class="btn btn-primary" id="btnCart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+            <button  class="btn btn-primary" id="openPopup"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+            <button  class="btn btn-danger" id="openpopup"><i class="fa fa-heart"></i></button>
+        
             {% else %}
-            <button  class="btn btn-secondary"><i class="fa fa-minus"></i> Out of Stock</button>
+            <button  class="btn btn-secondary" ><i class="fa fa-minus"></i> Out of Stock</button>
+            <button  class="btn btn-danger"  style="cursor:no-drop;"><i class="fa fa-heart"></i></button>
             {% endif %}
-            <button  class="btn btn-danger" id="btnFav"><i class="fa fa-heart"></i></button>
         </div>
         </div>
     </div>
  </div>
  </section>
+ {% include 'shop/inc/alert.html' %}
  <script>
     document.addEventListener("DOMContentLoaded",function(event){
         const btnplus = document.getElementById('btnplus');
         const btnminus = document.getElementById('btnminus');
         const textQty = document.getElementById('textqty');
         const pid = document.getElementById('pid');
-        const btnCart = document.getElementById('btnCart');
-        const btnFav = document.getElementById('btnFav');
-        
-        btnplus.addEventListener("click",function(){
+        const btnCart = document.getElementById('openPopup');
+        const btnFav = document.getElementById('openpopup');
+    btnplus.addEventListener("click",function(){
            let qty = parseInt(textQty.value,10);
            qty = isNaN(qty)?0:qty;
            if(qty<10)
@@ -107,17 +110,22 @@ ShopKart | {{prod}}
         }).then(response => {
 	        return response.json();
         }).then(data => {
-        	// console.log(data);
-          alert(data['status']);
+            if(data['status']==='Product added to cart successfully..')
+            {
+            showPopup('Congratulations!', data['status']);
+            }
+            else{
+                showPopup('Oops! sorry', data['status']);  
+            }
         });
            }
            else{
-            alert('Enter the quantity')
+            showPopup('Oops! sorry', data['status']);
            }
           
 
         });
-        btnFav.addEventListener("click", function() {
+btnFav.addEventListener("click", function() {
      
      let postObj = { 
          'pid': pid.value
@@ -135,12 +143,48 @@ ShopKart | {{prod}}
      }).then(response => {
          return response.json();
      }).then(data => {
-         
-       alert(data['status']);
+          if(data['status']==='Product Added to Favourite successfully..')
+          {
+            showPopup('Congratulations!', data['status']); 
+          } 
+          else{
+            showPopup('Oops! sorry', data['status']);
+          }   
      });
-   
 });
     });
+
+    // Function to show the popup
+function showPopup(greeting, message) {
+    const popup = document.getElementById('popup');
+    const greet = document.getElementById('greet');
+    const msg = document.getElementById('msg');
+    const closePopupBtn = document.getElementById('closePopup');
+    const img = document.getElementById('popImg')
+    greet.innerHTML = greeting;
+    msg.innerHTML = message;
+    if(greeting==='Oops! sorry')
+    {
+     img.src="{% static '/images/wrong1.jpeg' %}";
+     closePopupBtn.style.backgroundColor="red";
+    }
+    // Show the popup
+    popup.style.display = "block";
+
+    // Handle closing the popup
+    closePopupBtn.onclick = function() {
+        popup.style.display = "none";
+        // Optional: Redirect or enable background elements
+    };
+
+    // Close popup if user clicks outside the popup content
+    window.onclick = function(event) {
+        if (event.target === popup) {
+            popup.style.display = "none";
+        }
+    };
+}
+
  </script>
  {% endblock content %}   
-
+ 
