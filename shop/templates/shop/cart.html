@@ -3,6 +3,7 @@
 ShopKart | Cart
 {% endblock title %}        
  {% block content %}
+ {% load static %}
  <div class="container " style="margin-top: 80px;">
     <div class="row">
      <div class="col-12">
@@ -54,6 +55,7 @@ ShopKart | Cart
     </div>
    </section>
   </div>
+  {% include 'shop/inc/alert.html' %}
   <script>
 document.addEventListener("DOMContentLoaded",function(event){
 const CID = document.getElementById('cid');
@@ -76,8 +78,8 @@ fetch("/remove_cart/",{
   
   return response.json();
 }).then(data =>{
-  alert(data['status']);
-  window.location.href="{% url 'cart' %}";
+  
+  showPopup("Congratulations!",data['status']);
 });
 });
 });
@@ -95,6 +97,39 @@ const res = arr.reduce((acc, curr) => {
 }, 0);
 
 document.getElementById("net").innerHTML='₹'+res; 
+
+ // Function to show the popup
+ function showPopup(greeting, message) {
+  const popup = document.getElementById('popup');
+  const greet = document.getElementById('greet');
+  const msg = document.getElementById('msg');
+  const closePopupBtn = document.getElementById('closePopup');
+  const img = document.getElementById('popImg')
+  greet.innerHTML = greeting;
+  msg.innerHTML = message;
+  if(greeting==='Oops! sorry')
+  {
+   img.src="{% static '/images/wrong1.jpeg' %}";
+   closePopupBtn.style.backgroundColor="red";
+  }
+  // Show the popup
+  popup.style.display = "block";
+
+  // Handle closing the popup
+  closePopupBtn.onclick = function() {
+      popup.style.display = "none";
+      window.location.href="{% url 'cart' %}";
+      // Optional: Redirect or enable background elements
+  };
+
+  // Close popup if user clicks outside the popup content
+  window.onclick = function(event) {
+      if (event.target === popup) {
+          popup.style.display = "none";
+          window.location.href="{% url 'cart' %}";
+      }
+  };
+}
 
  </script> 
  {% endblock content %}   

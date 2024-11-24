@@ -16,7 +16,7 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-    return render(request , "shop/register.html",{'form':form}) 
+    return render(request , "shop/re q  1gister.html",{'form':form}) 
 def logout_page(request):
     if request.user.is_authenticated:
         logout(request)   
@@ -120,7 +120,6 @@ def remove_fav(request):
     favourite = Favourite.objects.get(id=id)
     favourite.delete()
     return JsonResponse({'status':'Favourite product has been removed successfully'},status=200)
-   else:
-    return JsonResponse({'status':'Login to remove '},status=200)
+   
    
        
