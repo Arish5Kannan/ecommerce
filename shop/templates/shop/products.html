@@ -3,11 +3,25 @@
 ShopKart | {{category_name}}
 {% endblock title %}        
  {% block content %}
+ {% load static %}
  <section class="bg-light py-4 my-5" >
  <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4 class="fw-dark" style="margin-top: 30px;">{{category_name}} Products</h4>
+            <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">{{category_name}} 
+            {% if category_name == "Fashon" %}
+            <i class="fas fa-shopping-bag"></i>
+            {% elif category_name == "Electronics" %}
+            <i class="fas fa-laptop"></i>
+            {% elif category_name == "Homes" %}
+            <i class="fas fa-home"></i>
+            {% elif category_name == "Grocerys" %}
+            <i class="fas fa-cookie-bite "></i>
+            {% elif category_name == "Mobiles" %}
+            <i class="fas fa-mobile-alt"></i>
+             {% endif %}
+
+            </h4>
             <hr class="mb-3" style="border-color: #b8bfc2;">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -20,24 +34,26 @@ ShopKart | {{category_name}}
         </div>
         {% for a in prod %}
         <div class="col-md-4 col-lg-3">
-            <div class="card  my-3 trendy" style="border: none;box-shadow: 2px 3px 4px 2px  #807f7f3b;">
-               {% if a.trending %}
-               <div class="hot">Hot</div>
-               {% endif %}
-                <img src="{{ a.product_image.url }}" class="card-image-top mx-auto d-block" alt="categories logo" style="width:170px;height:170px;margin-top: 3%;">
-                <hr  style="border-color: #404141;margin:2%  0 0 0;">
-                <a href="{% url 'product_details' category_name a.name %}" style="color:initial;">
-                <div class="card-body">
-                    <h5 class="card-title text-primary" style="padding-bottom:6px;">{{a.name}}</h5>
-                    <p class="card-text" >
-                        <span class="float-start old_price"><s>₹{{a.old_price |stringformat:'d'}} </s></span>
-                        <span class="float-end new_price">₹{{a.new_price |stringformat:'d'}}</span>
-                    </p>
-                </div>
-            </a>
+            <div class="card my-3 trendy" style="border: none; box-shadow: 2px 3px 4px 2px #807f7f3b;">
+                {% if a.product_image %}
+                    <img src="{{ a.product_image.url }}" class="card-image-top mx-auto d-block" alt="categories logo" style="width:150px;height:160px;margin-top: 3%;">
+                {% else %}
+                    <img src="{% static 'images/tick.jpeg' %}" class="card-image-top mx-auto d-block" alt="default image" style="width:150px;height:160px;margin-top: 3%;">
+                {% endif %}
+                <hr style="border-color: #404141;margin:2% 0 0 0;">
+                <a href="{% url 'product_details' a.category a.name %}" style="color:initial;">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary" style="padding-bottom:6px;">{{a.name}}</h5>
+                        <p class="card-text">
+                            <span class="float-start old_price"><s>₹{{a.old_price |stringformat:'d'}} </s></span>
+                            <span class="float-end new_price">₹{{a.new_price |stringformat:'d'}}</span>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
-        {% endfor %}
+    {% endfor %}
+    
     </div>
  </div>
  </section>

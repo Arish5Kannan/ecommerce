@@ -86,6 +86,10 @@ a{
     text-align: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
+.titles{
+    background-color:#000 !important;
+    color:white !important;
+}
 
 /* Close button */
 .close {
