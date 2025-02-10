@@ -21,6 +21,7 @@ a{
     margin-right: 20px;
     font-size: 17px;
 }
+
 .brand-shop{
     margin-left:50px;
     font-size:23px ;
@@ -72,8 +73,8 @@ a{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-    z-index: 1000;  /* Make sure it appears on top */
+    background-color: rgba(61, 61, 61, 0.5); /* Black background with opacity */
+    z-index: 2000;  /* Make sure it appears on top */
 }
 
 /* Popup content */

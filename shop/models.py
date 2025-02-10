@@ -22,10 +22,11 @@ class Product(models.Model):
     quantity = models.IntegerField(null=False,blank=False) 
     old_price = models.FloatField(null=False,blank=False)
     new_price =  models.FloatField(null=False,blank=False)
-    product_image = models.ImageField(upload_to=getFilename,null=True,blank=True) 
+    product_image = models.ImageField(upload_to=getFilename,null=False,blank=False) 
     description = models.TextField(max_length=500,null=False,blank=False) 
     status = models.BooleanField(default=False,help_text='0-show,1-hidden')
     trending = models.BooleanField(default=False,help_text='0-default,1-trending')
+    discount = models.FloatField(default=0,null=False,blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.name    

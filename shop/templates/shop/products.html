@@ -46,6 +46,9 @@ ShopKart | {{category_name}}
                         <h5 class="card-title text-primary" style="padding-bottom:6px;">{{a.name}}</h5>
                         <p class="card-text">
                             <span class="float-start old_price"><s>₹{{a.old_price |stringformat:'d'}} </s></span>
+                            {% if a.discount > 0 %}
+            <span class=" bg-dark p-1 text-white" style="border-radius:2px;margin-left:10px;">{{a.discount |stringformat:'d'}}% Off</span>
+            {% endif %}
                             <span class="float-end new_price">₹{{a.new_price |stringformat:'d'}}</span>
                         </p>
                     </div>

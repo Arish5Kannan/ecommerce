@@ -8,7 +8,9 @@ from time import sleep
 # Create your views here.
 def home(request):
     prod = Product.objects.filter(trending=1)
-    return render(request , "shop/index.html",{'prod':prod} )
+    cate = Category.objects.all()
+    prods = Product.objects.exclude(discount=0)    
+    return render(request , "shop/index.html",{'prod':prod,'cate':cate,'prods':prods} )
 def register(request):
     form = CustomUserForm()
     if request.method == 'POST':

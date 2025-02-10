@@ -8,7 +8,7 @@ ShopKart | {{prod}}
  <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">{{prod}} Details</h4>
+            <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">{{prod}} </h4>
             <hr class="mb-3" style="border-color: #b8bfc2;">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -34,7 +34,10 @@ ShopKart | {{prod}}
             <p class="text-normal" style="text-align: justify;">{{prod.description}}</p>
             <h6 class="my-2 text-danger d-inline"><span class=" px-2 py-2" style="border-radius: 5px;font-size: 18px;"> <s>₹{{prod.old_price | stringformat:'d'}}</s></span></h6>
             <h5 class="my-2 text-secondary d-inline"><span style="background-color: green;padding: 10px;border-radius: 5px;" class="  text-center text-white px-1 py-1 mx-1" style="font-size: 21px;"> ₹{{prod.new_price | stringformat:'d'}}</span></h5>
-        <div class="my-3">
+            {% if prod.discount > 0 %}
+            <span class=" bg-dark p-1 text-white" style="border-radius:2px;margin-left:10px;">{{prod.discount |stringformat:'d'}}% Off</span>
+            {% endif %}
+            <div class="my-3">
             {% if prod.quantity > 0 %}
             <input type="hidden" value="{{prod.id}}" id="pid">
             

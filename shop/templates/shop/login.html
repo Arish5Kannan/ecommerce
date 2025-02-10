@@ -6,8 +6,8 @@ ShopKart | Login
  <div class="container " style="margin-top: 80px;">
     <div class="row">
      <div class="col-12">
-         <h4>User Login</h4> 
-         <hr style="border-color: #404141;">
+         <h4  class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 20px;border-radius:10px;">User Login <i class="fas fa-sign-in"></i></h4> 
+        
         
      </div>
     </div>
@@ -28,6 +28,7 @@ ShopKart | Login
             <button type="submit" class="btn btn-primary">Login</button>
             <button type="reset" class="btn btn-secondary mx-3">Reset</button>
            </form>
+           <p class="my-2">New user? <a href="{% url 'register' %}" class="text-primary">Register</a></p>
           </div>
         </div>
       </div>

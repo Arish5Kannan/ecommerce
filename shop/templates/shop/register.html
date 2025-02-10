@@ -8,18 +8,16 @@ ShopKart | Register
     <div class="row">
      <div class="col-12">
          <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 20px;border-radius:10px;">User Registration <i class="fas fa-user-plus"></i></h4> 
-  
-      
      </div>
     </div>
     <section class="py-3 my-2">
       <div class="container">
-        <div class="row">
-          <div class="col-6">
+        <div class="row " >
+          <div class="col-6 ">
             <form method="POST" action="">
                {% csrf_token %}
                <div class="mb-4">
-                <label for="Username" class="form-label">Username</label>
+                <label for="Username" class="form-label custom-label">Username</label>
                 {{form.username}}
                 <!-- {% if form.errors.username %}
                 <label for="" class="text-danger">{{form.errors.username}}</label>
