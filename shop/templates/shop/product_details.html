@@ -60,6 +60,7 @@ ShopKart | {{prod}}
     </div>
  </div>
  </section>
+ {% include 'shop/inc/loader.html' %}
  {% include 'shop/inc/alert.html' %}
  <script>
     document.addEventListener("DOMContentLoaded",function(event){
@@ -69,6 +70,7 @@ ShopKart | {{prod}}
         const pid = document.getElementById('pid');
         const btnCart = document.getElementById('openPopup');
         const btnFav = document.getElementById('openpopup');
+        const loader =  document.getElementById('loader');
     btnplus.addEventListener("click",function(){
            let qty = parseInt(textQty.value,10);
            qty = isNaN(qty)?0:qty;
@@ -90,10 +92,10 @@ ShopKart | {{prod}}
 
         });
         btnCart.addEventListener("click",function(){
-
+            loader.style.display = "block";
            let qty = parseInt(textQty.value,10);
            qty = isNaN(qty)?0:qty;
-           if(qty>0)
+           if(qty > 0)
            {
           let postObject = {
            'product_qty':qty,
@@ -129,7 +131,7 @@ ShopKart | {{prod}}
 
         });
 btnFav.addEventListener("click", function() {
-     
+     loader.style.display="block";
      let postObj = { 
          'pid': pid.value
      }
@@ -146,6 +148,7 @@ btnFav.addEventListener("click", function() {
      }).then(response => {
          return response.json();
      }).then(data => {
+        
           if(data['status']==='Product Added to Favourite successfully..')
           {
             showPopup('Congratulations!', data['status']); 
@@ -155,35 +158,49 @@ btnFav.addEventListener("click", function() {
           }   
      });
 });
+loader.style.display = "none";
     });
 
-    // Function to show the popup
-function showPopup(greeting, message) {
+   // Function to show the popup
+   function showPopup(greeting, message) {
+    loader.style.display="none";
+    console.log("showPopup() called:", greeting, message);
     const popup = document.getElementById('popup');
+    const popupBox = document.getElementById('popupbox');
     const greet = document.getElementById('greet');
     const msg = document.getElementById('msg');
     const closePopupBtn = document.getElementById('closePopup');
-    const img = document.getElementById('popImg')
+    const img = document.getElementById('popImg');
+
     greet.innerHTML = greeting;
     msg.innerHTML = message;
-    if(greeting==='Oops! sorry')
-    {
-     img.src="{% static '/images/wrong1.jpeg' %}";
-     closePopupBtn.style.backgroundColor="red";
-    }
-    // Show the popup
-    popup.style.display = "block";
 
-    // Handle closing the popup
+    if (greeting === 'Oops! sorry') {
+        img.src = "{% static 'images/wrong1.jpeg' %}";
+        closePopupBtn.style.backgroundColor = "red";
+    } else {
+        img.src = "{% static 'images/tick.jpeg' %}";
+        closePopupBtn.style.backgroundColor = "#31d109";
+    }
+
+      // Ensure the popup is displayed
+      popup.style.display = "block";
+    popupBox.classList.add("popup-open");
+    
+    // Close button event
     closePopupBtn.onclick = function() {
+        console.log("Popup closed!");
+        popupBox.classList.remove("popup-open");
         popup.style.display = "none";
-        // Optional: Redirect or enable background elements
+        window.location.href = "{% url 'cart' %}";
     };
 
-    // Close popup if user clicks outside the popup content
+    // Close when clicking outside
     window.onclick = function(event) {
         if (event.target === popup) {
+            popupBox.classList.remove('popup-open');
             popup.style.display = "none";
+            window.location.href = "{% url 'cart' %}";
         }
     };
 }

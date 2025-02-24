@@ -44,6 +44,25 @@ class Favourite(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)     
     created_at = models.DateTimeField(auto_now_add=True)   
 class Orders(models.Model):
+    STATUS_CHOICES = [
+        ('Pending','Pending'),
+        ('Processing','Processing'),
+        ('Shipped','Shipped'),
+        ('Delivered','Delivered'),
+        ('Cancelled','Cancelled')
+    ]
     user = models.ForeignKey(User,on_delete=models.CASCADE)  
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)    
+    order_status = models.CharField(max_length=50,default="Pending",choices=STATUS_CHOICES)
+    total_price = models.FloatField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True) 
+    def __str__(self):
+        return f"order {self.id} - {self.user.username} - {self.order_status}"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name="items")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    price = models.FloatField()  # Price at the time of purchase
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} (Order {self.order.id})"       

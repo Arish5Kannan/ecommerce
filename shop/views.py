@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import *
 from shop.forms import CustomUserForm
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
 from time import sleep
@@ -9,7 +10,8 @@ from time import sleep
 def home(request):
     prod = Product.objects.filter(trending=1)
     cate = Category.objects.all()
-    prods = Product.objects.exclude(discount=0)    
+    prods = Product.objects.exclude(discount=0) 
+      
     return render(request , "shop/index.html",{'prod':prod,'cate':cate,'prods':prods} )
 def register(request):
     form = CustomUserForm()
@@ -82,6 +84,8 @@ def add_to_cart(request):
             return JsonResponse({'status':'Login to add Cart'},status=200)
     else :
         return JsonResponse({'status':'Invalid Access'},status=200) 
+
+@login_required(login_url="/login/")
 def cart(request):
     cartitems = Cart.objects.filter(user=request.user)
     return render(request,'shop/cart.html',{'carts':cartitems})  
@@ -112,6 +116,8 @@ def fav_page(request):
       return JsonResponse({'status':'Login to Add Favourite'}, status=200)
    else:
     return JsonResponse({'status':'Invalid Access'}, status=200)
+
+@login_required(login_url="/login/")
 def favview(request):
     favourite = Favourite.objects.filter(user=request.user)
     return render(request,'shop/favourite.html',{'fav':favourite})
@@ -122,6 +128,36 @@ def remove_fav(request):
     favourite = Favourite.objects.get(id=id)
     favourite.delete()
     return JsonResponse({'status':'Favourite product has been removed successfully'},status=200)
-   
-   
-       
+
+def place_order(request):
+    if request.method == "POST":
+        cart_items = Cart.objects.filter(user=request.user)
+
+        if not cart_items:
+            return redirect('cart')  # Redirect if cart is empty
+
+        # Calculate total order price
+        total_price = sum(item.product.new_price * item.product_qty for item in cart_items)
+
+        # Create an Order
+        order = Orders.objects.create(user=request.user, total_price=total_price)
+
+        # Move Cart items to OrderItem
+        for cart_item in cart_items:
+            OrderItem.objects.create(
+            order=order,
+            product=cart_item.product,
+            quantity=cart_item.product_qty,
+            price=cart_item.product.new_price
+        )
+
+        # Clear Cart
+        cart_items.delete()
+
+        return JsonResponse({"status":"order placed successfully"},status=200)
+    return JsonResponse({"status": "error", "message": "Invalid request!"},status=200)  
+  
+@login_required
+def orders(request):
+    orders = Orders.objects.filter(user=request.user).prefetch_related("items__product")
+    return render(request, "shop/orders.html", {"orders": orders})

@@ -3,6 +3,7 @@
    ShopKart | Collections
 {% endblock title %}
 {% block content %}
+{% if not request.user.is_authenticated %}
   <section class="py-5 text-center container"  style="margin-top:70px;">
     <div class="row py-lg-5" >
       <div class="col-lg-6 col-md-8 mx-auto py-3" style="background-color:rgba(180, 177, 177, 0.09);border-radius:10px;">
@@ -15,10 +16,11 @@
       </div>
     </div>
   </section>
-  <section class="bg-light py-4 my-1" style="min-height:600px;">
+  {% endif %}
+  <section class="bg-light py-4 my-5" style="min-height:600px;">
     <div class="container">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 my-3">
           <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">Categories <i class="fas fa-cart-shopping"></i></h4>
           <hr style="border-color:#404041;">
           
