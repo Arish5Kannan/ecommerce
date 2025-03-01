@@ -3,13 +3,183 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
 }
-.carousel-item img{
-    margin-top:58px;
+/* .carousel-item img{
+    margin-top:25px;
     object-fit: cover;
     overflow: hidden;
     object-position: top;
     height:44vh;
    
+} */
+
+/* Carousel Container */
+.carousel {
+  height: 50vh; /* Large height for better visibility */
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure images fit properly */
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Prevents distortion and ensures full coverage */
+  display: block;
+}
+
+/* Indicators - Modern Look */
+.carousel-indicators {
+  bottom: 5px;
+}
+.carousel-indicators button {
+  background-color: white;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.carousel-indicators .active {
+  background-color: red; /* Highlight active slide */
+  opacity: 1;
+}
+
+/* Custom Navigation Buttons */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.custom-prev-icon,
+.custom-next-icon {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  mask-size: cover;
+  -webkit-mask-size: cover;
+}
+
+.custom-prev-icon {
+  mask-image: url("https://cdn-icons-png.flaticon.com/512/130/130884.png");
+  -webkit-mask-image: url("https://cdn-icons-png.flaticon.com/512/130/130884.png");
+}
+
+.custom-next-icon {
+  mask-image: url("https://cdn-icons-png.flaticon.com/512/130/130882.png");
+  -webkit-mask-image: url("https://cdn-icons-png.flaticon.com/512/130/130882.png");
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .carousel {
+    height: 40vh;
+  }
+  .carousel-img {
+    max-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    height: 30vh;
+  }
+  .carousel-img {
+    max-height: 350px;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+   
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel {
+    height: 30vh;
+  }
+  .carousel-img {
+    height:350px;
+    max-height: 500px;
+  }
+}
+.accordion-button {
+  background-color: #f8f9fa;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+.accordion-body {
+  font-size: 1rem;
+  color: #555;
+}
+
+.accordion {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.accordion-item {
+  border: 1px solid #ddd;
+}
+
+.accordion-header button {
+  transition: all 0.3s ease-in-out;
+}
+
+.accordion-header button:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+password-reset-container {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.password-reset-container .form-control {
+  border-radius: 50px;
+}
+.password-reset-container .btn {
+  border-radius: 50px;
+}
+.header-icon {
+  font-size: 60px;
+  color: #007bff;
+}
+
+.card {
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.profile-card {
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 20px;
+}
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 a{
     text-decoration: none;
@@ -23,14 +193,47 @@ a{
 }
 
 .brand-shop{
-    margin-left:50px;
+    margin-left:20px;
     font-size:23px ;
 
 }
-/* .form-bg{
-    
-} */
 
+/* Remove hover effects on mobile */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link:hover {
+      background-color: transparent !important;
+      color: inherit !important;
+  }
+}
+
+/* Remove box-shadow on navbar toggler when clicked */
+.navbar-toggler:focus, 
+.navbar-toggler:active {
+  outline: none;
+  box-shadow: none !important;
+  border: none;
+}
+
+/* Adjust navbar link spacing */
+.navbar-nav .nav-link {
+  padding: 10px 15px;
+}
+
+/* Highlight active user */
+.user-highlight {
+  background-color: #ff4500;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+/* Style user icon */
+.user-highlight i {
+  background-color: aliceblue;
+  color: black;
+  padding: 4px;
+  border-radius: 12px;
+}
 .old_price{
     font-weight: bold;
     color: red;
@@ -46,80 +249,292 @@ a{
 .trendy{
     position:relative;
 }
-.popup img{
-    width:90px;
-    border-radius: 100%;
-    margin-top: -75px;
-}
-.popup p{
-    font-size: 21px;
-}
+
 .hot{
-    background-color: orangered;
-    font-weight: bold;
-    text-align: center;
-    padding: 4px;
-    border-radius: 5px;
-    display: inline;
-    position: absolute;
-    width:40px;
-    color: white;
-    top:8px;
-    left: 8px;
-    z-index: 1;
-    font-size:15px;
+  background-color: orangered;
+  font-weight: bold;
+  text-align: center;
+  padding: 4px;
+  border-radius: 5px;
+  display: inline;
+  position: absolute;
+  width:40px;
+  color: white;
+  top:8px;
+  left: 8px;
+  z-index: 1;
+  font-size:15px;
 }
-/* The popup (hidden by default) */
 .popup {
-    display: none;  /* Hidden initially */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(41, 39, 39, 0.86);
-    z-index: 2000;  /* Make sure it appears on top */
-}
-
-/* Popup content */
-.popup-content {
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1050;
+  }
+  
+  .popup-content {
     background-color: #fff;
-    position: absolute;
-    top:0;
-    left: 50%;
-    transform: translate(-50%,-50%)scale(0.1);
-    z-index: 3050;
+    margin: 15% auto;
     padding: 20px;
     border-radius: 8px;
-    width: 24%;
-    height:270px;
+    width: 27%; 
     text-align: center;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    visibility: hidden;
-    transition:transform 0.6s , top 0.6s ;
-}
-.popup-open {
-    visibility: visible !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) scale(1) !important;
-    
-}
- 
-.titles{
-    background-color:#000 !important;
-    color:white !important;
-}
-
-/* Close button */
-.close {
+  }
+  
+  .close {
     background-color: #31d109;
     color: white;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     text-align: center;
-    width:250px;
-    display:block;
-    margin:auto;
+    margin: auto;
+    display: block;
     border-radius: 9px;
+  }
+  
+  .popup img {
+    width: 90px;
+    border-radius: 100%;
+    margin-top: -75px;
+  }
+  
+  .popup p {
+    font-size: 21px;
+  }
+  
+
+  @media (max-width: 576px) {
+    
+    .popup-content {
+      width: 80%; 
+      padding: 15px; 
+      position: fixed;
+      top: 25%;
+      left: 25%;
+    }
+  
+    .popup img {
+      width: 70px; 
+      margin-top: -60px;
+    }
+  
+    .popup p {
+      font-size: 18px; 
+    }
+  
+   
+  }
+  
+ 
+  @media (max-width: 768px) {
+    .popup-content {
+      width: 60%; 
+      padding: 18px; 
+    }
+  
+    .popup img {
+      width: 80px; 
+      margin-top: -70px;
+    }
+  
+    .popup p {
+      font-size: 19px; 
+    }
+  
+   
+  }
+  
+ 
+  @media (min-width: 769px) {
+    .popup-content {
+      width: 26%; 
+      padding: 20px; 
+    }
+  
+    .popup img {
+      width: 90px; 
+      margin-top: -75px;
+    }
+  
+    .popup p {
+      font-size: 21px; 
+    }
+  } 
+  
+/* Social Media Icons */
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.social-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.social-icon i {
+  font-size: 22px;
+  color: #444;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hover Effects - Change Background & Icon Color */
+.facebook:hover {
+  background: #1877F2;
+}
+.facebook:hover i {
+  color: white;
+}
+
+.twitter:hover {
+  background: #1DA1F2;
+}
+.twitter:hover i {
+  color: white;
+}
+
+.google:hover {
+  background: #DB4437;
+}
+.google:hover i {
+  color: white;
+}
+
+.instagram:hover {
+  background: #E1306C;
+}
+.instagram:hover i {
+  color: white;
+}
+
+.linkedin:hover {
+  background: #0077B5;
+}
+.linkedin:hover i {
+  color: white;
+}
+
+.github:hover {
+  background: #24292E;
+}
+.github:hover i {
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .social-icon {
+      width: 40px;
+      height: 40px;
+  }
+  .social-icon i {
+      font-size: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .social-icon {
+      width: 35px;
+      height: 35px;
+  }
+  .social-icon i {
+      font-size: 18px;
+  }
+}
+.empty-cart-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.empty-cart-container img {
+  max-width: 250px;
+  opacity: 0.8;
+}
+
+.empty-cart-container h2 {
+  color: #dc3545; /* Bootstrap danger color */
+  font-weight: bold;
+}
+
+.empty-cart-container p {
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.empty-cart-container .btn {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+}
+.no-orders-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.no-orders-container img {
+  max-width: 250px;
+  opacity: 0.8;
+}
+
+.no-orders-container h2 {
+  color: #ffc107; /* Bootstrap warning color */
+  font-weight: bold;
+}
+
+.no-orders-container p {
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.no-orders-container .btn {
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+}
+.no-wishlist-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.no-wishlist-container img {
+  max-width: 250px;
+  opacity: 0.8;
+}
+
+.no-wishlist-container h2 {
+  color: #dc3545; /* Bootstrap danger color */
+  font-weight: bold;
+}
+
+.no-wishlist-container p {
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.no-wishlist-container .btn {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
 }

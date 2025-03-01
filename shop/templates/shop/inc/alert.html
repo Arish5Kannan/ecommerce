@@ -1,9 +1,10 @@
 {% load static %}
-<div id="popup" class="popup container-fluid" >
-    <div class="container popup-content" id="popupbox">  
-    <img src="{% static '/images/tick.jpeg' %}" alt="tick" id="popImg" >
+<!-- Popup Modal -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <img src="{% static 'images/tick.jpeg' %}" class="img-fluid" alt="tick" id="popImg">
         <h2 id="greet" class="text-center my-3">hii</h2>
         <p id="msg" class="text-center my-4">dgdgdgfd</p>
-        <button id="closePopup" class="shadow my-2 close">OK</button>
+        <button id="closePopup" class="btn w-100 shadow my-2 " style="color:white;">OK</button>
     </div>
 </div> 

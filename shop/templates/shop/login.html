@@ -1,38 +1,136 @@
 {% extends 'shop/layouts/main.html' %}
+{% load static %}
 {% block title %}
 ShopKart | Login
 {% endblock title %}        
- {% block content %}
- <div class="container " style="margin-top: 80px;">
-    <div class="row">
-     <div class="col-12">
-         <h4  class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 20px;border-radius:10px;">User Login <i class="fas fa-sign-in"></i></h4> 
-        
-        
-     </div>
-    </div>
-    <section class="py-4 my-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-6">
-           <form action="" method="POST">
+{% block content %}
+<div class="container-fluid bg-light d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="container">
+    <section class="py-4 my-5 d-flex justify-content-center align-items-center">
+      <div class="row justify-content-center w-100 mt-5">
+        <div class="col-lg-5 col-md-6 col-sm-10 col-12">
+          <form action="" class="shadow w-100" method="POST" 
+                style="padding: 20px; border-radius: 10px; background: #fff; max-width: 500px; margin: auto;">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="username" class="form-label">User Name</label>
-                <input type="text" name="username" id="username" class="form-control">
+            <div class="text-center position-relative">
+              <i class="fa fa-user bg-white p-4 rounded-circle shadow" 
+                 style="font-size: 50px; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);"></i>
+            </div>
+            <div class="mb-3 mt-5">
+              <label for="username" class="form-label">User Name</label>
+              <input type="text" required name="username" id="username" class="form-control custom-input">
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" required name="password" id="password" class="form-control custom-input">
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <button type="reset" class="btn btn-secondary mx-3">Reset</button>
-           </form>
-           <p class="my-2">New user? <a href="{% url 'register' %}" class="text-primary">Register</a></p>
-          </div>
+            <button type="submit" id="login" class="btn btn-dark w-100  mt-3"style="padding:10px;">
+              <i class="fa fa-sign-in"></i> Login
+            </button>
+            <button type="reset" class="btn btn-primary w-100  mt-3"style="padding:10px;">
+              <i class="fa fa-refresh"></i> Reset
+            </button>
+            <p class="my-2 text-center"> <a href="{% url 'forgot_password' %}" class="text-danger">Forgot Password </a></p>
+          </form>
+          <p class="my-2 text-center">New user? <a href="{% url 'register' %}" class="text-primary">Register</a></p>
         </div>
       </div>
     </section>
   </div>
-    
+</div>
+
+{% include 'shop/inc/alert.html' %}
+{% include 'shop/inc/loader.html' %}
+
+   <script>
+document.addEventListener("DOMContentLoaded",function(event){
+const btnLogin = document.getElementById("login");
+const username = document.getElementById("username");
+const password = document.getElementById("password");
+
+btnLogin.addEventListener("click",function(event){
+event.preventDefault();
+loader.style.display = "block";
+let postObject = {
+  'username' : username.value,
+  'password' : password.value
+};
+fetch("{% url 'login' %}", {
+  method: 'POST',
+  credentials: 'same-origin',
+  headers: {
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRFToken': '{{ csrf_token }}',
+  },
+  body: JSON.stringify(postObject)
+})
+.then(response => response.json())
+.then(data => {
+  console.log(data['status']);
+  loader.style.display="none";
+  if(data['status'] == 'Login success'){
+    showPopup("Congratulations!", data['status'],'success');
+  }
+  else{
+    showPopup("Oops! sorry", data['status'],'failure');
+  }
+  
+});
+});
+});
+
+// Function to show the popup
+function showPopup(greeting, message, hint) {
+  console.log("showPopup() called:", greeting, message);
+  const popup = document.getElementById('popup');
+  const greet = document.getElementById('greet');
+  const msg = document.getElementById('msg');
+  const closePopupBtn = document.getElementById('closePopup');
+  const img = document.getElementById('popImg');
+
+  greet.innerHTML = greeting;
+  msg.innerHTML = message;
+
+  if (greeting === 'Oops! sorry') {
+      img.src = "{% static 'images/wrong1.jpeg' %}";
+      closePopupBtn.style.backgroundColor = "red";
+  } else {
+      img.src = "{% static 'images/tick.jpeg' %}";
+      closePopupBtn.style.backgroundColor = "#31d109";
+  }
+
+    // Ensure the popup is displayed
+    popup.style.display = "block";
+  
+  
+  // Close button event
+  closePopupBtn.onclick = function() {
+      console.log("Popup closed!");
+      popup.style.display = "none";
+      if(hint == 'success'){
+        window.location.href = "{% url 'home' %}";
+      }
+      else{
+        window.location.href = "{% url 'login' %}";
+      }
+      
+  };
+
+  // Close when clicking outside
+  window.onclick = function(event) {
+      if (event.target === popup) {
+          
+          popup.style.display = "none";
+          if(hint == 'success'){
+            window.location.href = "{% url 'home' %}";
+          }
+          else{
+            window.location.href = "{% url 'login' %}";
+          }
+      }
+  }
+}
+
+   </script> 
  {% endblock content %}   

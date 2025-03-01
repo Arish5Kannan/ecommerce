@@ -1,48 +1,85 @@
+
 {% extends 'shop/layouts/main.html' %}
+{% load static %}
 {% block title %}
    ShopKart | Collections
 {% endblock title %}
-{% block content %}
-{% if not request.user.is_authenticated %}
-  <section class="py-5 text-center container"  style="margin-top:70px;">
-    <div class="row py-lg-5" >
-      <div class="col-lg-6 col-md-8 mx-auto py-3" style="background-color:rgba(180, 177, 177, 0.09);border-radius:10px;">
-        <h1 class="fw-light">Bestsellers</h1>
-        <p class="lead text-muted">Our most popular products based on sales. Updated hourly.</p>
-        <p>
-          <a href="{% url 'login' %}" class="btn  my-3 mx-2" style="background-color:#000;color:white;">Already User</a>
-          <a href="{% url 'register' %}" class="btn btn-secondary my-3">Register</a>
-        </p>
-      </div>
-    </div>
-  </section>
-  {% endif %}
-  <section class="bg-light py-4 my-5" style="min-height:600px;">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 my-3">
-          <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">Categories <i class="fas fa-cart-shopping"></i></h4>
-          <hr style="border-color:#404041;">
-          
-        </div>
-        {% for item in catagory %}
-        <div class="col-md-4 col-lg-3">
-          <div class="card my-3" style="border: none;box-shadow: 2px 3px 4px 2px  #807f7f3b;">
-            <img src="{{item.image.url}}"  class="card-image-top d-block mx-auto" alt="Categories" style="width:170px;height:170px;margin-top: 3%;">
-            <hr style="margin:4px 0px 0px 0px;border-color: #404041;">
-            <a href="{% url 'collections' item.name %}">
-            <div class="card-body">
-              <h5 class="card-title text-primary">{{ item.name }}</h5>
-              <p class="card-text" style="color: black;">{{ item.description }}</p>
-    
-            </div>
-          </a>
-          </div>
-        </div>
-        {% endfor %}
 
-      </div>
-      </div>
-  </section>
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero bg-dark text-white text-center py-5">
+    <div class="container">
+        <h1 class="fw-bold">Explore Our Categories</h1>
+        <p class="lead">Find the best products across various categories. Choose what suits you best!</p>
+
+        
+        </div>
+
+        <!-- Category Image -->
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <img src="
+                https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP9dsD39rGdMnbdv1SwgXn4oVVbmWkneOARw&s" class="img-fluid  rounded" alt="Categories Banner" style="width:250px;height:100px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% if not request.user.is_authenticated %}
+<!-- Login/Register Prompt -->
+<section class="py-1 text-center container" style="margin-top:30px;">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto py-3 bg-light" style="border-radius:10px;">
+            <h1 class="fw-light">Bestsellers</h1>
+            <p class="text-secondary">Our most popular products based on sales. Updated hourly.</p>
+            <p>
+                <a href="{% url 'login' %}" class="btn btn-dark my-3 mx-2">Already a User?</a>
+                <a href="{% url 'register' %}" class="btn btn-secondary my-3">Register Now</a>
+            </p>
+        </div>
+    </div>
+    
+</section>
+{% endif %}
+
+
+<!-- Categories Section -->
+<section class="bg-light py-4 my-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 my-3">
+                <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px; border-radius:10px;">
+                    Categories <i class="fas fa-th-large"></i>
+                </h4>
+                <hr style="border-color:#404041;">
+            </div>
+
+            {% for item in catagory %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card my-3 shadow-sm border-0 category-card">
+                    <div class="card-body text-center">
+                        <img src="{{ item.image.url }}" class="img-fluid card-image-top mx-auto d-block" alt="Category"
+                        style="width:150px;height:160px;margin-top: 3%;" >
+                        <h5 class="card-title mt-3 text-primary">{{ item.name }}</h5>
+                        <p class="card-text text-muted">{{ item.description }}</p>
+                        <a href="{% url 'collections' item.name %}" class="btn btn-sm btn-dark">Explore</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Trending Products CTA -->
+<section class="trending-products bg-dark text-white text-center py-5">
+    <div class="container">
+        <h2>Trending Products 🔥</h2>
+        <p>Discover the hottest selling products now!</p>
+        <a href="{% url 'home' %}" class="btn btn-light btn-lg">Shop Now</a>
+    </div>
+</section>
 
 {% endblock content %}

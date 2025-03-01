@@ -185,22 +185,22 @@ loader.style.display = "none";
 
       // Ensure the popup is displayed
       popup.style.display = "block";
-    popupBox.classList.add("popup-open");
+    
     
     // Close button event
     closePopupBtn.onclick = function() {
         console.log("Popup closed!");
-        popupBox.classList.remove("popup-open");
+       
         popup.style.display = "none";
-        window.location.href = "{% url 'cart' %}";
+        
     };
 
     // Close when clicking outside
     window.onclick = function(event) {
         if (event.target === popup) {
-            popupBox.classList.remove('popup-open');
+            
             popup.style.display = "none";
-            window.location.href = "{% url 'cart' %}";
+            
         }
     };
 }

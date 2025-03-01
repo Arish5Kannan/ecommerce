@@ -2,6 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 import datetime
+
+User._meta.get_field('email')._unique = True
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    contact = models.CharField(max_length=15, blank=True, null=True)
+    address = models.CharField(max_length=250, blank=True, null=True)
+    def __str__(self):
+        return self.user.username
+
 def getFilename(request,filename):
     now = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
     new_filename = '%s%s'%(now,filename)

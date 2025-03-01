@@ -15,6 +15,14 @@ urlpatterns = [
     path('favview',views.favview,name='favview'),
     path('remove_fav/',views.remove_fav,name='remove_fav'),
     path("place_order/",views.place_order, name="place_order"),
-    path("orders", views.orders, name="orders")
-
+    path("orders/", views.orders, name="orders"),
+    path("reset_password/<int:id>/",views.reset_password,name="reset_password"),
+    path("reset_password_id/",views.reset_password_id,name="reset_password_id"),
+    path("forgot_password/",views.forgot_password, name="forgot_password"),
+    path("profile/",views.profile,name="profile"),
+    path("delete_cart/",views.delete_cart, name="delete_cart"),
+    path("delete_favourite/",views.delete_fav,name="delete_favourite"),
+    path('cancel-order/<int:order_id>/', views.cancel_order, name='cancel_order'),
+    path("edit_profile/<int:id>/",views.edit_profile,name="edit_profile"),
+    path("forgot_password_processing/",views.forgot_password_processing,name="forgot_password_processing")
 ]

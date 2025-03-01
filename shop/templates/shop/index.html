@@ -6,7 +6,7 @@ ShopKart | Online shopping
  {% load static %}
  {% include 'shop/inc/slider.html' %}
  {% comment %} Popular categories section {% endcomment %}
- <div class="container" style="margin-top:50px">
+ <div class="container" style="margin-top:30px">
 <div class="row">
 <div class="col-12">
     <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">Popular Categories <i class="fas fa-box"></i></h4>
@@ -68,7 +68,7 @@ ShopKart | Online shopping
  </div>
 
  {% comment %} Special offers section {% endcomment %}
- <section class="container" style="margin-top:10px">
+ <section class="container" style="margin-top:10px" id="trendy">
 <div class="row">
     <div class="col-12">
         <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">Latest Offers <i class="fas fa-cart-shopping"></i></h4>
@@ -104,7 +104,7 @@ ShopKart | Online shopping
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h4 class="text-white bg-dark px-3 py-2 d-inline-block " style="margin-left:42%;margin-top: 30px;border-radius:10px;">Special partners <i class="fas fa-cart-shopping"></i></h4>  
+                <h4 class="text-white bg-dark px-3 py-2 d-inline-block" style="margin-top: 30px;border-radius:10px;">Special partners <i class="fas fa-cart-shopping"></i></h4>  
             </div>
            <marquee class="col my-3 "  >
             <img src="data:image/jpeg;base64,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" class="image-fluid mx-3"  >
@@ -120,7 +120,7 @@ ShopKart | Online shopping
  {% comment %} Contact page section with background photo  {% endcomment %}
  <section class="container-fluid" style="
  margin-top: 10px;
- background-image: linear-gradient(rgba(71, 68, 68, 0.33), rgba(71, 68, 68, 0.829)), url('{% static "images/image.png" %}');
+ background-image: linear-gradient(160deg, rgba(41, 39, 39, 0.61), rgba(71, 68, 68, 0.12)), url('{% static "images/fp.png" %}');
  background-position: center;
  background-repeat: no-repeat;
  background-size: cover;
@@ -129,49 +129,7 @@ ShopKart | Online shopping
 ">
  <div class="container py-5">
      <div class="row justify-content-between">
-         <!-- Contact Info Section -->
-         <div class="col-lg-5 text-white">
-             <h2 class="text-white p-2 " style="border-radius: 5px;">
-                 <i class="fas fa-envelope"></i> Contact Us
-             </h2>
-             <p style="font-size: 18px;">
-                 Have any queries? Feel free to reach out to us! We're happy to assist you.  
-             </p>
-             
-             <ul class="list-unstyled">
-                 <li class="mb-2">
-                     <i class="fas fa-map-marker-alt me-2"></i> Chennai, Tamil Nadu, India
-                 </li>
-                 <li class="mb-2">
-                     <i class="fas fa-envelope me-2"></i> shopkart @gmail.com
-                 </li>
-                 <li class="mb-2">
-                     <i class="fas fa-phone-alt me-2"></i> +91 96553 47718
-                 </li>
-             </ul>
 
-             <!-- Social Media Links -->
-             <div class="d-flex flex-wrap mt-3 social-links">
-                 <a href="#" class="p-3 text-white bg-white p-2 me-3 icons" style="border-radius:5px;">
-                     <i class="fab fa-facebook text-secondary" style="font-size:18px;"></i>
-                 </a>
-                 <a href="#" class="p-3 text-white bg-white p-2 me-3 icons" style="border-radius:5px;">
-                     <i class="fab fa-twitter text-secondary"style="font-size:18px;"></i>
-                 </a>
-                 <a href="#" class="p-3 text-whitet bg-white p-2 me-3 icons" style="border-radius:5px;">
-                     <i class="fab fa-google text-secondary"style="font-size:18px;"></i>
-                 </a>
-                 <a href="#" class="p-3 text-white bg-white p-2 me-3 icons" style="border-radius:5px;">
-                     <i class="fab fa-instagram text-secondary"style="font-size:18px;"></i>
-                 </a>
-                 <a href="#" class="p-3 text-white bg-white p-2 me-3 icons" style="border-radius:5px;">
-                     <i class="fab fa-linkedin text-secondary"style="font-size:18px;"></i>
-                 </a>
-                 <a href="#" class="p-3  text-white bg-white p-2 me-3 icons"style="border-radius:3px;">
-                     <i class="fab fa-github text-secondary"style="font-size:18px;"></i>
-                 </a>
-             </div>
-         </div>
 
          <!-- Contact Form Section -->
          <div class="col-lg-6 my-2" >
@@ -206,6 +164,45 @@ ShopKart | Online shopping
                  </button>
              </form>
          </div>
+<!-- Contact Info Section -->
+<div class="col-lg-5 text-white">
+    <h2 class="text-white p-2" style="border-radius: 5px;">
+        <i class="fas fa-envelope"></i> Contact Us
+    </h2>
+    <p style="font-size: 18px;">
+        Have any queries or need assistance? Our team is here to help!  
+        Whether it's about your order, product inquiries, or general support, feel free to get in touch. 
+        We strive to respond within 24 hours.
+    </p>
+
+    <ul class="list-unstyled">
+        <li class="mb-2">
+            <i class="fas fa-map-marker-alt me-2"></i> Chennai, Tamil Nadu, India
+        </li>
+        <li class="mb-2">
+            <i class="fas fa-envelope me-2"></i> shopkart@gmail.com
+        </li>
+        <li class="mb-2">
+            <i class="fas fa-phone-alt me-2"></i> +91 96553 47718
+        </li>
+    </ul>
+
+    <h4 class="mt-4">Business Hours:</h4>
+    <p style="font-size: 16px;">
+        Monday - Friday: 9:00 AM - 7:00 PM <br>
+        Saturday: 10:00 AM - 5:00 PM <br>
+        Sunday: Closed
+    </p>
+
+    <h4 class="mt-4">Why Choose Us?</h4>
+    <ul class="list-unstyled">
+        <li><i class="fas fa-check-circle me-2"></i> 24/7 Customer Support</li>
+        <li><i class="fas fa-check-circle me-2"></i> Fast & Secure Shipping</li>
+        <li><i class="fas fa-check-circle me-2"></i> Hassle-Free Returns</li>
+        <li><i class="fas fa-check-circle me-2"></i> Trusted by Thousands of Customers</li>
+    </ul>
+</div>
+
      </div>
  </div>
 </section>

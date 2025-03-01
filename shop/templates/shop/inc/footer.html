@@ -1,11 +1,11 @@
-<footer class="text-center text-lg-start  text-white py-4" style="background:#000;">
-   
-  
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <div class="row mt-3">
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <h6 class="text-uppercase fw-bold mb-4"><i class="fa fa-cart-plus"></i> ShopKart</h6>
+{% load static %}
+<footer class=" text-lg-start  text-white py-4 " style="background:#000;">  
+    <section class="container-fluid  ">
+      <div class="container  text-md-start mt-5">
+        <div class="row mt-3 ">
+          <div class="col-md-3 col-lg-4 col-xl-3 text-start mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">     <img class="img-fluid " src="{% static "/images/shopLogo.png" %}" style="width:130px;height:45px;">
+            </h6>
             <p style="text-align: justify;">
               shopkart.com is a one stop destination for your family's fashion needs.
                We give you the opportunity to give your wardrobe a makeover with the latest collections from our top brands.
@@ -38,7 +38,30 @@
       </div>
     </section>
     <hr  style="border-color: #fff;margin:2%  0 0 0;"> 
-    <div class="text-center p-4">
+    <div class="d-flex justify-content-between flex-wrap ">
+    <div class="text-center p-4 col-md-6 col-lg-3 col-12">
       &copy;  2024 Copyright <a class="text-reset fw-bold" href="#">ShoKart.in</a>
     </div>
+  <!-- Social Media Links -->
+  <div class="d-flex flex-wrap mt-3 social-links col-md-6 col-lg-4 col-12">
+    <a href="#" class=" social-icon facebook p-2  icons rounded-circle" >
+        <i class="fab fa-facebook " style="font-size:18px;"></i>
+    </a>
+    <a href="#" class=" social-icon twitter p-2  icons rounded-circle" >
+        <i class="fab fa-twitter "style="font-size:18px;"></i>
+    </a>
+    <a href="#" class=" social-icon google p-2  icons rounded-circle" >
+        <i class="fab fa-google "style="font-size:18px;"></i>
+    </a>
+    <a href="#" class=" social-icon instagram p-2  icons rounded-circle" >
+        <i class="fab fa-instagram "style="font-size:18px;"></i>
+    </a>
+    <a href="#" class=" social-icon linkedin p-2  icons rounded-circle" >
+        <i class="fab fa-linkedin "style="font-size:18px;"></i>
+    </a>
+    <a href="#" class=" social-icon github  p-2  icons rounded-circle">
+        <i class="fab fa-github "style="font-size:18px;"></i>
+    </a>
+</div>
+  </div>
   </footer>
